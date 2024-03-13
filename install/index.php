@@ -17,11 +17,11 @@ class farexpo_registration extends CModule
         $path = str_replace("\\", "/", __FILE__);
         $path = substr($path, 0, strlen($path) - strlen("/index.php"));
         include($path . "/version.php");
-        $this->PARTNER_NAME = Loc::getMessage("PARTNER_NAME");
+        $this->PARTNER_NAME = Loc::getMessage("FAREXPO_REG_PARTNER_NAME");
         $this->MODULE_VERSION = $arModuleVersion["VERSION"];
         $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
-        $this->MODULE_NAME = Loc::getMessage("MODULE_NAME");
-        $this->MODULE_DESCRIPTION = Loc::getMessage("MODULE_DESCRIPTION");
+        $this->MODULE_NAME = Loc::getMessage("FAREXPO_REG_MODULE_NAME");
+        $this->MODULE_DESCRIPTION = Loc::getMessage("FAREXPO_REG_MODULE_DESCRIPTION");
     }
 
     function InstallFiles()
@@ -50,7 +50,7 @@ class farexpo_registration extends CModule
 
         if($USER->IsAdmin()){
             $this->InstallFiles();
-            $APPLICATION->IncludeAdminFile(Loc::getMessage("DO_INSTALL_MESS"), $_SERVER["DOCUMENT_ROOT"]. "/local/modules/" . $this->MODULE_ID . "/install/step.php");
+            $APPLICATION->IncludeAdminFile(Loc::getMessage("FAREXPO_REG_DO_INSTALL_MESS"), $_SERVER["DOCUMENT_ROOT"]. "/local/modules/" . $this->MODULE_ID . "/install/step.php");
             return true;
         }
     }
@@ -61,7 +61,7 @@ class farexpo_registration extends CModule
         if($USER->IsAdmin())
         {
             $this->UnInstallFiles();
-            $APPLICATION->IncludeAdminFile(Loc::getMessage("DO_UNINSTALL_MESS"), $DOCUMENT_ROOT . "/local/modules/" . $this->MODULE_ID . "/install/unstep.php");
+            $APPLICATION->IncludeAdminFile(Loc::getMessage("FAREXPO_REG_DO_UNINSTALL_MESS"), $DOCUMENT_ROOT . "/local/modules/" . $this->MODULE_ID . "/install/unstep.php");
         }
         return true;
     }

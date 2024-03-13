@@ -8,13 +8,13 @@ use Bitrix\Main\Localization\Loc;
 $module_id = "farexpo.registration";
 
 if(!$USER->IsAdmin() || !Loader::includeModule($module_id))
-return;1232
+return;
 
 $arAllOptions = [
 	"Главные настройки",
 	[
 		"ID" => "set_sending_data_time",
-		"NAME" => Loc::getMessage("REG_OPT_SET_SENDING_DATA_TIME_NAME"),
+		"NAME" => Loc::getMessage("FAREXPO_REG_OPT_SET_SENDING_DATA_TIME_NAME"),
 		"Y",
 		"PARAMS" => [
 			"TYPE" => "text"
@@ -74,14 +74,14 @@ $tabControl->Buttons();?>
 <script type="text/javascript">
 function RestoreDefaults()
 {
-	if (confirm('<? echo CUtil::JSEscape(Loc::getMessage("REG_OPT_RESTORE_MESS")); ?>'))
+	if (confirm('<? echo CUtil::JSEscape(Loc::getMessage("FAREXPO_REG_OPT_RESTORE_MESS")); ?>'))
 		window.location = "<?echo $APPLICATION->GetCurPage()?>?lang=<? echo LANGUAGE_ID; ?>&mid=<? echo $module_id; ?>&RestoreDefaults=Y&<?=bitrix_sessid_get()?>";
 }
 </script>
 
-	<input type="submit" name="Apply" value="<?= Loc::getMessage("REG_OPT_BTN_SAVE")?>" title="<?= Loc::getMessage("REG_OPT_SAVE_TITLE")?>" class="adm-btn-save">
+	<input type="submit" name="Apply" value="<?= Loc::getMessage("FAREXPO_REG_OPT_BTN_SAVE")?>" title="<?= Loc::getMessage("FAREXPO_REG_OPT_SAVE_TITLE")?>" class="adm-btn-save">
 	<input type="hidden" name="Update" value="Y">
-	<input type="button" title="<?= Loc::getMessage("REG_OPT_HINT_RESTORE_DEFAULTS_TITLE")?>" OnClick="RestoreDefaults();" value="<?= Loc::getMessage("REG_OPT_HINT_RESTORE_DEFAULTS")?>">
+	<input type="button" title="<?= Loc::getMessage("FAREXPO_REG_OPT_HINT_RESTORE_DEFAULTS_TITLE")?>" OnClick="RestoreDefaults();" value="<?= Loc::getMessage("FAREXPO_REG_OPT_HINT_RESTORE_DEFAULTS")?>">
 </form>
 <?
 
