@@ -8,7 +8,7 @@ use Bitrix\Main\Localization\Loc;
 $module_id = "farexpo.registration";
 
 if(!$USER->IsAdmin() || !Loader::includeModule($module_id))
-return;
+return;1232
 
 $arAllOptions = [
 	"Главные настройки",
