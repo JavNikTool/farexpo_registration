@@ -16,6 +16,11 @@ if(!Loader::includeModule('farexpo.registration')) {
     
 }
 
+$module_id = "farexpo.registration";
+$moduleAccessLevel = $APPLICATION->GetGroupRight($module_id);
+
+echo $moduleAccessLevel;
+
 $APPLICATION->SetTitle(Loc::getMessage("FAREXPO_REG_ADM_TITLE"));
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_admin.php");

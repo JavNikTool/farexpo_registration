@@ -27,6 +27,11 @@ $aTabs = [
 		"DIV" => "edit1",
 		"TAB" => "Настройки",
 		"TITLE" => "Настройка параметров модуля"
+	],
+	[
+		"DIV" => "edit2",
+		"TAB" => "Доступ",
+		"TITLE" => "Настройка параметров модуля"
 	]
 ];
 
@@ -69,6 +74,10 @@ foreach($arAllOptions as $arOption) {
 		echo '</pre>'; */
 	}
 }
+
+$tabControl->BeginNextTab();
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/admin/group_rights.php');
+
 $tabControl->Buttons();?>
 
 <script type="text/javascript">
@@ -83,7 +92,7 @@ function RestoreDefaults()
 	<input type="hidden" name="Update" value="Y">
 	<input type="button" title="<?= Loc::getMessage("FAREXPO_REG_OPT_HINT_RESTORE_DEFAULTS_TITLE")?>" OnClick="RestoreDefaults();" value="<?= Loc::getMessage("FAREXPO_REG_OPT_HINT_RESTORE_DEFAULTS")?>">
 </form>
-<?
+<?$tabControl->End();
 
 /* echo "<pre>";
 print_r($request->get('time'));
