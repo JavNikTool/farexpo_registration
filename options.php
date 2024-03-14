@@ -16,26 +16,26 @@ if ($moduleAccessLevel >= 'R')
 	$arAllOptions = [
 		"Главные настройки",
 		[
-			"ID" => "set_sending_data_time",
-			"NAME" => Loc::getMessage("FAREXPO_REG_OPT_SET_SENDING_DATA_TIME_NAME"),
-			"DESCRIPTION" => Loc::getMessage("FAREXPO_REG_OPT_SET_SENDING_DATA_TIME_DESCRIPTION"),
+			"ID" => "sending_data_time",
+			"NAME" => Loc::getMessage("FAREXPO_REG_OPT_SENDING_DATA_TIME_NAME"),
+			"DESCRIPTION" => Loc::getMessage("FAREXPO_REG_OPT_SENDING_DATA_TIME_DESCRIPTION"),
 			"PARAMS" => [
 				"TYPE" => "text"
 			]
 		],
 		"URL сайтов",
 		[
-			"ID" => "set_rosgas_url",
-			"NAME" => Loc::getMessage("FAREXPO_REG_OPT_SET_ROSGAS_URL"),
-			"DESCRIPTION" => Loc::getMessage("FAREXPO_REG_OPT_SET_ROSGAS_DESCRIPTION"),
+			"ID" => "rosgas_url",
+			"NAME" => Loc::getMessage("FAREXPO_REG_OPT_ROSGAS_URL"),
+			"DESCRIPTION" => Loc::getMessage("FAREXPO_REG_OPT_ROSGAS_DESCRIPTION"),
 			"PARAMS" => [
 				"TYPE" => "text"
 			]
 		],
 		[
-			"ID" => "set_fiexpo_url",
-			"NAME" => Loc::getMessage("FAREXPO_REG_OPT_SET_FIEXPO_URL"),
-			"DESCRIPTION" => Loc::getMessage("FAREXPO_REG_OPT_SET_FIEXPO_DESCRIPTION"),
+			"ID" => "fiexpo_url",
+			"NAME" => Loc::getMessage("FAREXPO_REG_OPT_FIEXPO_URL"),
+			"DESCRIPTION" => Loc::getMessage("FAREXPO_REG_OPT_FIEXPO_DESCRIPTION"),
 			"PARAMS" => [
 				"TYPE" => "text"
 			]
