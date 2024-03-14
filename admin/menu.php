@@ -6,7 +6,7 @@ $module_id = "farexpo.registration";
 $moduleAccessLevel = $APPLICATION->GetGroupRight($module_id);
 
 if($moduleAccessLevel !== 'W') 
-	return;
+	return false;
 else{
 	$aMenu[] = array(
 		"parent_menu" => "global_menu_settings",
