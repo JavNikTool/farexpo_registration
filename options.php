@@ -67,6 +67,8 @@ if ($moduleAccessLevel >= 'R')
 		$tabControl->BeginNextTab();
 		if ($_REQUEST['RestoreDefaults'] === 'Y') 
 		{
+			$all_options = Option::getForModule($module_id);
+			Option::delete($module_id, [$all_options]);
 			include_once('default_option.php');
 			if (is_array($reg_default_option)) {
 				foreach ($reg_default_option as $option => $value) {
