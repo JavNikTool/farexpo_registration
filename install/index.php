@@ -35,15 +35,15 @@ class farexpo_registration extends CModule
             true,
             true
         );
-        CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/panel", $_SERVER["DOCUMENT_ROOT"]."/bitrix/panel", true, true);
+        /* CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/panel", $_SERVER["DOCUMENT_ROOT"]."/bitrix/panel", true, true); */
         return true;
     }
 
     function UnInstallFiles()
     {
         DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/admin", $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin");
-        DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/panel/" . $this->MODULE_ID, $_SERVER["DOCUMENT_ROOT"]."/bitrix/panel/" . $this->MODULE_ID);
-        rmdir($_SERVER["DOCUMENT_ROOT"]."/bitrix/panel/" . $this->MODULE_ID);
+       /*  DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/panel/" . $this->MODULE_ID, $_SERVER["DOCUMENT_ROOT"]."/bitrix/panel/" . $this->MODULE_ID);
+        rmdir($_SERVER["DOCUMENT_ROOT"]."/bitrix/panel/" . $this->MODULE_ID); */
         return true;
     }
 

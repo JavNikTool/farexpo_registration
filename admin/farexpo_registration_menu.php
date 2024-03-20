@@ -21,7 +21,7 @@ if(!Loader::includeModule('farexpo.registration')) {
     
 }
 
-Asset::getInstance()->addCss("/home/bitrix/www/bitrix/panel/farexpo.registration/farexpo_registration.css");
+include __DIR__ . '/assets/style.php';
 
 $APPLICATION->SetTitle(Loc::getMessage("FAREXPO_REG_ADM_TITLE"));
 
@@ -40,8 +40,14 @@ $aTabs = array(
 );
 
 $arExhibitions = [
-    "Газ-Котлы-Энерго",
-    "Мода"
+    [
+        "ID" => "fi-expo_ex",
+        "NAME" => "Мода"
+    ],
+    [
+        "ID" => "gaz_ex",
+        "NAME" => "Газ-Котлы-Энерго"
+    ],
 ];
 
 $arAllOptions = [
@@ -52,6 +58,12 @@ $arAllOptions = [
         "TYPE" => "p",
         "DEFAULT" => "неактивно"
     ],
+   /*  [
+        "ID" => "active_btn",
+        "NAME" => "Запустить разовую отправку",
+        "DESCRIPTION" => "Статус активности работы программы",
+        "TYPE" => "button",
+    ], */
 ];
 
 $tabControl = new \CAdminTabControl('tabControl', $aTabs, false, true);
@@ -91,9 +103,29 @@ $tabControl->BeginNextTab();
                 </p>
             </td>
         </tr>
+
+        <tr>
+            <td width="40%" align="end">
+                    <p>Выбрать выставку: </p>
+            </td>
+            <td width="60%">
+                <select name="exhibition">
+                <?
+                    foreach ($arExhibitions as $exhibition) {
+                        ?>
+                            
+                            <option value="<?= $exhibition["ID"]?>"><?= $exhibition["NAME"]?></option>
+                            
+                        <?
+                    }
+                ?>
+                </select>
+            </td>
+        </tr>
     <?
-
-
+    /* echo "<pre>";
+        var_dump($_REQUEST);
+    echo "</pre>"; */
     $all_options = Option::getForModule($module_id);
 
     foreach ($arAllOptions as $option) {
