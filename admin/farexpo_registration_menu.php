@@ -7,7 +7,6 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\UI\Extension;
-use Bitrix\Main\Page\Asset;
 
 $module_id = "farexpo.registration";
 $moduleAccessLevel = $APPLICATION->GetGroupRight($module_id);
@@ -79,13 +78,41 @@ Extension::load("ui.hint");
     })
 </script>
 
-<form method="post" id="forma" action="<? echo $APPLICATION->GetCurPage() ?>?lang=<? echo LANG ?>" name="form<?=ACTION_REGISTRATION?>"><?
+<form method="post" id="forma" action="<? echo $APPLICATION->GetCurPage() ?>?lang=<? echo LANG ?>&<?= bitrix_sessid_get() ?>" name="form<?=ACTION_REGISTRATION?>"><?
 $tabControl->BeginNextTab();
-/* echo "<pre>";
-    print_r(Option::getForModule($module_id));
+
+$posts = $request->getPostList();
+$gets = $request->getQueryList();
+
+    /* echo $moduleAccessLevel; */
+
+    /* echo "<pre>";
+        var_dump($posts);
     echo "</pre>";
-     
-    echo $moduleAccessLevel; */
+
+    echo "<pre>";
+        var_dump($gets);
+    echo "</pre>"; */
+
+    if(isset($posts["exhibition"])) {
+        $exhibition = $posts["exhibition"];
+    
+        Option::set($module_id, "exhibition", $exhibition);
+        
+    }
+
+    if(isset($gets["StopSending"]) && $gets["StopSending"] == "Y") {
+        Option::delete($module_id, array(
+            "name" => "exhibition"
+        ));
+    }
+
+    $exhibitionId = Option::get($module_id, "exhibition");
+
+    /* echo $exhibitionId;
+    echo "<pre>";
+    print_r(Option::getForModule($module_id));
+    echo "</pre>"; */
 
     ?>
         <tr>
@@ -96,8 +123,8 @@ $tabControl->BeginNextTab();
             </td>
             <td width="60%">
                 <p>
-                    <span class="red">
-                    неактивно
+                    <span class="<?= strlen($exhibitionId) > 0 ? "green" : "red" ?>">
+                    <?= strlen($exhibitionId) > 0 ? "активно" : "неактивно" ?>
                     </span>
                     <span data-hint="Моя первая подсказка"></span>
                 </p>
@@ -114,7 +141,7 @@ $tabControl->BeginNextTab();
                     foreach ($arExhibitions as $exhibition) {
                         ?>
                             
-                            <option value="<?= $exhibition["ID"]?>"><?= $exhibition["NAME"]?></option>
+                            <option <? if ($exhibition["ID"] == $exhibitionId) echo "selected"; ?> value="<?= $exhibition["ID"]?>"><?= $exhibition["NAME"]?></option>
                             
                         <?
                     }
@@ -123,9 +150,7 @@ $tabControl->BeginNextTab();
             </td>
         </tr>
     <?
-    /* echo "<pre>";
-        var_dump($_REQUEST);
-    echo "</pre>"; */
+
     $all_options = Option::getForModule($module_id);
 
     foreach ($arAllOptions as $option) {
@@ -148,9 +173,19 @@ $tabControl->BeginNextTab();
     <?
     }
     $tabControl->Buttons();
+
     ?>
-    <input type="submit" id="tr_submit" class="adm-btn-green" data-action="<?= $currentAction ?>" value="Запуск">
-    <input type="submit" id="tr_submit" class="adm-btn" data-action="<?= $currentAction ?>" value="Остановить работу">
+
+<script type="text/javascript">
+    function StopRun() {
+        window.location = "<? echo $APPLICATION->GetCurPage() ?>?lang=<?= LANGUAGE_ID ?>&mid=<? echo $module_id; ?>&StopSending=Y&<?= bitrix_sessid_get() ?>";
+    }
+</script>
+
+    <input type="submit" <? if(strlen($exhibitionId) > 0) echo "disabled"; ?> id="tr_submit" class="adm-btn-green" data-action="<?= $currentAction ?>" value="Запуск">
+    <input type="hidden" name="run" value="Y">
+    <input type="button" onClick="StopRun();" <? if(isset($gets["StopSending"]) && $gets["StopSending"] == "Y") echo "disabled"; ?> id="tr_submit_stop" class="adm-btn" data-action="<?= $currentAction ?>" value="Остановить работу">
+    <input type="button" id="tr_submit_once" class="adm-btn" data-action="<?= $currentAction ?>" value="Отправить один раз">
     <?
 $tabControl->EndTab();
 ?>
