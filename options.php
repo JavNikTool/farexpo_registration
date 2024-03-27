@@ -39,6 +39,14 @@ if ($moduleAccessLevel >= 'R')
 			"PARAMS" => [
 				"TYPE" => "text"
 			]
+		],
+		[
+			"ID" => "radel_url",
+			"NAME" => Loc::getMessage("FAREXPO_REG_OPT_RADEL_URL"),
+			"DESCRIPTION" => Loc::getMessage("FAREXPO_REG_OPT_RADEL_DESCRIPTION"),
+			"PARAMS" => [
+				"TYPE" => "text"
+			]
 		]
 	];
 

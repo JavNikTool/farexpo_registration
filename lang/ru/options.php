@@ -9,4 +9,6 @@ $MESS["FAREXPO_REG_OPT_ROSGAS_URL"] = "URL апи газовых сайтов";
 $MESS["FAREXPO_REG_OPT_ROSGAS_DESCRIPTION"] = "здесь должна быть актуальная ссылка на апи сайта росгаза";
 $MESS["FAREXPO_REG_OPT_FIEXPO_URL"] = "URL апи сайта моды";
 $MESS["FAREXPO_REG_OPT_FIEXPO_DESCRIPTION"] = "здесь должна быть актуальная ссылка на апи сайта моды";
+$MESS["FAREXPO_REG_OPT_RADEL_URL"] = "URL апи сайтов радэл-аис";
+$MESS["FAREXPO_REG_OPT_RADEL_DESCRIPTION"] = "здесь должна быть актуальная ссылка на апи сайтов радэл-аис";
 $MESS["FAREXPO_REG_OPT_HINT_RESTORE_DEFAULTS"] = "По умолчанию";

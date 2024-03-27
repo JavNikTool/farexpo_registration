@@ -33,8 +33,8 @@ define("ACTION_REGISTRATION", "registration");
 $aTabs = array(
 	array(
 		'DIV' => ACTION_REGISTRATION,
-		'TAB' => "Регистрация",
-		'TITLE' => "Регистрация",
+		'TAB' => Loc::getMessage("FAREXPO_REG_ADM_TAB"),
+		'TITLE' => Loc::getMessage("FAREXPO_REG_ADM_TAB_TITLE"),
 	)
 );
 
@@ -47,23 +47,26 @@ $arExhibitions = [
         "ID" => "gaz_ex",
         "NAME" => "Газ-Котлы-Энерго"
     ],
+    [
+        "ID" => "radel_ex",
+        "NAME" => "Радэл-аис"
+    ],
 ];
 
-$arAllOptions = [
+/* $arAllOptions = [
     [
         "ID" => "active_status",
         "NAME" => "Статус:",
-        "DESCRIPTION" => "Статус активности работы программы",
         "TYPE" => "p",
         "DEFAULT" => "неактивно"
     ],
-   /*  [
+    [
         "ID" => "active_btn",
         "NAME" => "Запустить разовую отправку",
         "DESCRIPTION" => "Статус активности работы программы",
         "TYPE" => "button",
-    ], */
-];
+    ],
+]; */
 
 $tabControl = new \CAdminTabControl('tabControl', $aTabs, false, true);
 $tabControl->Begin();
@@ -109,34 +112,34 @@ $gets = $request->getQueryList();
 
     $exhibitionId = Option::get($module_id, "exhibition");
 
-    /* echo $exhibitionId;
+    echo $exhibitionId;
     echo "<pre>";
     print_r(Option::getForModule($module_id));
-    echo "</pre>"; */
+    echo "</pre>";
 
     ?>
         <tr>
             <td width="40%" align="end">
                 <p>
-                    <b> Статус: </b>
+                    <b><?= Loc::getMessage("FAREXPO_REG_ADM_STATUS") ?></b>
                 </p>
             </td>
             <td width="60%">
                 <p>
-                    <span class="<?= strlen($exhibitionId) > 0 ? "green" : "red" ?>">
-                    <?= strlen($exhibitionId) > 0 ? "активно" : "неактивно" ?>
+                    <span class="<?= strlen($exhibitionId) > 0 ? "green" : "red"; ?>">
+                    <?= strlen($exhibitionId) > 0 ? Loc::getMessage("FAREXPO_REG_ADM_STATUS_ACTIVE") : Loc::getMessage("FAREXPO_REG_ADM_STATUS_INACTIVE"); ?>
                     </span>
-                    <span data-hint="Моя первая подсказка"></span>
+                    <span data-hint="<?= Loc::getMessage("FAREXPO_REG_ADM_STATUS_HINT"); ?>"></span>
                 </p>
             </td>
         </tr>
 
         <tr>
             <td width="40%" align="end">
-                    <p>Выбрать выставку: </p>
+                    <p><?= Loc::getMessage("FAREXPO_REG_ADM_EXHIBITION_CHOOSE"); ?></p>
             </td>
             <td width="60%">
-                <select name="exhibition">
+                <select name="exhibition" <? if (strlen($exhibitionId) > 0) echo "disabled"; ?>>
                 <?
                     foreach ($arExhibitions as $exhibition) {
                         ?>
@@ -182,10 +185,10 @@ $gets = $request->getQueryList();
     }
 </script>
 
-    <input type="submit" <? if(strlen($exhibitionId) > 0) echo "disabled"; ?> id="tr_submit" class="adm-btn-green" data-action="<?= $currentAction ?>" value="Запуск">
+    <input type="submit" <? if(strlen($exhibitionId) > 0) echo "disabled"; ?> id="tr_submit" class="adm-btn-green" data-action="<?= $currentAction ?>" value="<?= Loc::getMessage("FAREXPO_REG_ADM_BTN_RUN"); ?>">
     <input type="hidden" name="run" value="Y">
-    <input type="button" onClick="StopRun();" <? if(isset($gets["StopSending"]) && $gets["StopSending"] == "Y") echo "disabled"; ?> id="tr_submit_stop" class="adm-btn" data-action="<?= $currentAction ?>" value="Остановить работу">
-    <input type="button" id="tr_submit_once" class="adm-btn" data-action="<?= $currentAction ?>" value="Отправить один раз">
+    <input type="button" onClick="StopRun();" <? if(isset($gets["StopSending"]) && $gets["StopSending"] == "Y") echo "disabled"; ?> id="tr_submit_stop" class="adm-btn" data-action="<?= $currentAction ?>" value="<?= Loc::getMessage("FAREXPO_REG_ADM_BTN_STOP"); ?>">
+    <input type="button" id="tr_submit_once" <? if(strlen($exhibitionId) > 0) echo "disabled"; ?> class="adm-btn" data-action="<?= $currentAction ?>" value="<?= Loc::getMessage("FAREXPO_REG_ADM_BTN_RUN_ONCE"); ?>">
     <?
 $tabControl->EndTab();
 ?>
