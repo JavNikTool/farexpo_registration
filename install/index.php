@@ -1,5 +1,7 @@
 <?
+
 use Bitrix\Main\Localization\Loc;
+
 Loc::loadMessages(__FILE__);
 class farexpo_registration extends CModule
 {
@@ -27,22 +29,33 @@ class farexpo_registration extends CModule
     function InstallFiles()
     {
         CopyDirFiles(
-            $_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/admin", 
-            $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin", true, true);
+            $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/admin",
+            $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin",
+            true,
+            true
+        );
         CopyDirFiles(
             $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/components",
             $_SERVER["DOCUMENT_ROOT"] . "/bitrix/components/farexpo",
             true,
             true
         );
+        /* CopyDirFiles(
+            $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/js",
+            $_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID,
+            true,
+            true
+        ); */
         /* CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/panel", $_SERVER["DOCUMENT_ROOT"]."/bitrix/panel", true, true); */
         return true;
     }
 
     function UnInstallFiles()
     {
-        DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/admin", $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin");
-       /*  DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/panel/" . $this->MODULE_ID, $_SERVER["DOCUMENT_ROOT"]."/bitrix/panel/" . $this->MODULE_ID);
+        DeleteDirFiles($_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/admin", $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin");
+        /* DeleteDirFiles($_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/js", $_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID);
+        rmdir($_SERVER["DOCUMENT_ROOT"] . "/bitrix/js/" . $this->MODULE_ID); */
+        /*  DeleteDirFiles($_SERVER["DOCUMENT_ROOT"]."/local/modules/" . $this->MODULE_ID . "/install/panel/" . $this->MODULE_ID, $_SERVER["DOCUMENT_ROOT"]."/bitrix/panel/" . $this->MODULE_ID);
         rmdir($_SERVER["DOCUMENT_ROOT"]."/bitrix/panel/" . $this->MODULE_ID); */
         return true;
     }
@@ -51,9 +64,9 @@ class farexpo_registration extends CModule
     {
         global $USER, $APPLICATION;
 
-        if($USER->IsAdmin()){
+        if ($USER->IsAdmin()) {
             $this->InstallFiles();
-            $APPLICATION->IncludeAdminFile(Loc::getMessage("FAREXPO_REG_DO_INSTALL_MESS"), $_SERVER["DOCUMENT_ROOT"]. "/local/modules/" . $this->MODULE_ID . "/install/step.php");
+            $APPLICATION->IncludeAdminFile(Loc::getMessage("FAREXPO_REG_DO_INSTALL_MESS"), $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/step.php");
             return true;
         }
     }
@@ -61,8 +74,7 @@ class farexpo_registration extends CModule
     function DoUninstall()
     {
         global $DOCUMENT_ROOT, $APPLICATION, $USER;
-        if($USER->IsAdmin())
-        {
+        if ($USER->IsAdmin()) {
             $this->UnInstallFiles();
             $APPLICATION->IncludeAdminFile(Loc::getMessage("FAREXPO_REG_DO_UNINSTALL_MESS"), $DOCUMENT_ROOT . "/local/modules/" . $this->MODULE_ID . "/install/unstep.php");
         }
@@ -70,12 +82,12 @@ class farexpo_registration extends CModule
     }
 
     function InstallEvents()
-	{
-		return true;
-	}
+    {
+        return true;
+    }
 
-	function UnInstallEvents()
-	{
-		return true;
-	}
+    function UnInstallEvents()
+    {
+        return true;
+    }
 }

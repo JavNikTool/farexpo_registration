@@ -20,13 +20,14 @@ if(!Loader::includeModule('farexpo.registration')) {
     
 }
 
-include __DIR__ . '/assets/style.php';
-
-$APPLICATION->SetTitle(Loc::getMessage("FAREXPO_REG_ADM_TITLE"));
-
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php");
 
-$request = \Bitrix\Main\Context::getCurrent()->getRequest();
+Extension::load("ui.hint");
+
+include __DIR__ . '/assets/style.php';
+include __DIR__ . '/assets/scripts.php';
+
+$APPLICATION->SetTitle(Loc::getMessage("FAREXPO_REG_ADM_TITLE"));
 
 define("ACTION_REGISTRATION", "registration");
 
@@ -53,39 +54,16 @@ $arExhibitions = [
     ],
 ];
 
-/* $arAllOptions = [
-    [
-        "ID" => "active_status",
-        "NAME" => "Статус:",
-        "TYPE" => "p",
-        "DEFAULT" => "неактивно"
-    ],
-    [
-        "ID" => "active_btn",
-        "NAME" => "Запустить разовую отправку",
-        "DESCRIPTION" => "Статус активности работы программы",
-        "TYPE" => "button",
-    ],
-]; */
-
+$request = \Bitrix\Main\Context::getCurrent()->getRequest();
+$posts = $request->getPostList();
+$gets = $request->getQueryList();
 $tabControl = new \CAdminTabControl('tabControl', $aTabs, false, true);
 $tabControl->Begin();
 
-Extension::load("ui.hint");
-
 ?>
-
-<script type="text/javascript">
-    BX.ready(function() {
-        BX.UI.Hint.init(BX('forma'));
-    })
-</script>
 
 <form method="post" id="forma" action="<? echo $APPLICATION->GetCurPage() ?>?lang=<? echo LANG ?>&<?= bitrix_sessid_get() ?>" name="form<?=ACTION_REGISTRATION?>"><?
 $tabControl->BeginNextTab();
-
-$posts = $request->getPostList();
-$gets = $request->getQueryList();
 
     /* echo $moduleAccessLevel; */
 
@@ -179,16 +157,11 @@ $gets = $request->getQueryList();
 
     ?>
 
-<script type="text/javascript">
-    function StopRun() {
-        window.location = "<? echo $APPLICATION->GetCurPage() ?>?lang=<?= LANGUAGE_ID ?>&mid=<? echo $module_id; ?>&StopSending=Y&<?= bitrix_sessid_get() ?>";
-    }
-</script>
 
     <input type="submit" <? if(strlen($exhibitionId) > 0) echo "disabled"; ?> id="tr_submit" class="adm-btn-green" data-action="<?= $currentAction ?>" value="<?= Loc::getMessage("FAREXPO_REG_ADM_BTN_RUN"); ?>">
     <input type="hidden" name="run" value="Y">
     <input type="button" onClick="StopRun();" <? if(isset($gets["StopSending"]) && $gets["StopSending"] == "Y") echo "disabled"; ?> id="tr_submit_stop" class="adm-btn" data-action="<?= $currentAction ?>" value="<?= Loc::getMessage("FAREXPO_REG_ADM_BTN_STOP"); ?>">
-    <input type="button" id="tr_submit_once" <? if(strlen($exhibitionId) > 0) echo "disabled"; ?> class="adm-btn" data-action="<?= $currentAction ?>" value="<?= Loc::getMessage("FAREXPO_REG_ADM_BTN_RUN_ONCE"); ?>">
+    <input type="button" onClick="SendingOnce();" id="tr_sending_once" <? if(strlen($exhibitionId) > 0) echo "disabled"; ?> class="adm-btn" data-action="<?= $currentAction ?>" value="<?= Loc::getMessage("FAREXPO_REG_ADM_BTN_RUN_ONCE"); ?>">
     <?
 $tabControl->EndTab();
 ?>
